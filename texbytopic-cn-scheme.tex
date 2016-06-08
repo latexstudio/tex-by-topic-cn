@@ -1,0 +1,79 @@
+% Font settings
+\usepackage[AutoFakeSlant=true]{xeCJK}
+\usepackage[OT1]{fontenc}
+\renewcommand{\sfdefault}{txss}
+\renewcommand{\rmdefault}{txr}
+\renewcommand{\ttdefault}{cmtt}
+
+\setCJKmainfont[BoldFont=FandolSong-Bold,%
+                ItalicFont=FandolKai-Regular,%
+                SlantedFont=FandolFang-Regular]{FandolSong-Regular}
+\setCJKsansfont{FandolHei-Regular}
+\setCJKmonofont{FandolFang-Regular}
+
+\makeatletter
+
+% Chapter title scheme
+\def\@makechapterhead#1{%
+  \vspace*{50\p@ \@plus 5\p@}%
+  {\setlength\parindent{\z@}%
+   \setlength\parskip  {\z@}%
+   \head@style \normalfont
+    \ifnum \c@secnumdepth >\m@ne
+        \Large\ChapFont \@chapprefix{} \thechapter{} \@chapsuffix
+        \par\nobreak
+        \vskip 20\p@
+    \fi
+    \Large \ChapFont #1\par
+    \nobreak
+    \vskip 40\p@
+  }}
+\def\@chapprefix{第} \def\@chapsuffix{章}
+
+% Page style scheme
+\def\ps@fancy{%
+  \def\@oddfoot{\PageFont{\BannerFont\tbtbanner}\hfil\thepage}%
+  \def\@oddfoot{\PageFont\thepage\hfil{\BannerFont\tbtbanner}}%
+  \def\@oddhead{\vbox to \headheight{\hb@xt@\hsize{\PageFont\leftmark\hfil}\vss\hrule}}
+  \if@twoside
+    \def\@evenhead{\vbox to \headheight{\hb@xt@\hsize{\PageFont\hfil\rightmark}\vss\hrule}}
+  \else
+    \let\@evenhead\@oddhead \let\@evenfoot\@oddfoot
+  \fi
+  \def\chaptermark##1{%
+    \markboth{\ifnum \c@secnumdepth >\m@ne \@chapprefix{} \thechapter{} \@chapsuffix{} \fi ##1}{}
+  }
+  \def\sectionmark##1{%
+    \markright{\ifnum \c@secnumdepth >\z@ \thesection. \fi ##1}
+  }
+}
+\pagestyle{fancy}
+\makeatother
+
+\usepackage{comment,makeidx}
+
+\usepackage[colorlinks,plainpages,pagebackref]{hyperref}
+\hypersetup{
+   pdfstartview={FitH},
+   citecolor=teal,
+   linkcolor=myblue,
+   urlcolor=black,
+   bookmarksnumbered
+}
+
+\def\BannerFont{\small\itshape}
+\def\ChapFont{\sffamily}
+
+\def\contentsname{目录}
+\def\listfigurename{插图}
+\def\listtablename{表格}
+\def\figurename{图}
+\def\tablename{表}
+\def\abstractname{摘要}
+\def\indexname{索引}
+\def\bibname{参考文献}
+\def\appendixname{附录}
+
+\def\tbtbanner{\TeX\ by Topic}
+
+\endinput
