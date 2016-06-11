@@ -2,21 +2,25 @@
 \def\mdqon{\catcode`"=13\relax}
 \def\mdqoff{\catcode`"=12\relax}
 \makeindex
-\hyphenation{ex-em-pli-fies}
 
 \newdimen\tempdima \newdimen\tempdimb
 
 % these are fine
 \def\handbreak{\\ \message{^^JManual break!!!!^^J}}
 \def\nl{\protect\\}\def\n#1{{\tt #1}}
-\def\cs#1{\texorpdfstring{{\tt\char`\\#1}}{\textbackslash#1}} %\def\cs#1{{\tt\char`\\#1}}
-\let\csc\cs
+\DeclareRobustCommand*\cs[1]{{\tt \char`\\#1}}
+\DeclareRobustCommand*\gr[1]{$\langle$#1$\rangle$}
+\let\cschar\cs % in original version this is  \csc
 \def\lb{{\tt\char`\{}}\def\rb{{\tt\char`\}}}
-\def\gr#1{\texorpdfstring{$\langle$#1$\rangle$}{<#1>}} %\def\gr#1{$\langle$#1$\rangle$}
 \def\key#1{{\tt#1}}
 \def\alt{}\def\altt{}%this way in manstijl
 \def\ldash{\unskip\ --\nobreak\ \ignorespaces}
 \def\rdash{\unskip\nobreak\ --\ \ignorespaces}
+
+\pdfstringdefDisableCommands{%
+  \def\cs#1{\textbackslash #1}%
+  \def\gr#1{<#1>}
+}
 % check these
 \def\hex{{\tt"}}
 \def\ascii{{\sc ascii}}
@@ -25,15 +29,11 @@
 \def\AmsTeX{Ams\TeX}
 \def\TeXbook{the \TeX\ book}\def\web{{\sc web}}
 % needs major thinking
-\newenvironment{myquote}{\list{}{%
-    \topsep=2pt \partopsep=0pt%
-    \leftmargin=\parindent \rightmargin=\parindent
-    }\item[]}{\endlist}
-\newenvironment{disp}{\begin{myquote}}{\end{myquote}}
-\newenvironment{Disp}{\begin{myquote}}{\end{myquote}}
-\newenvironment{tdisp}{\begin{myquote}}{\end{myquote}}
-\newenvironment{example}{\begin{myquote}\noindent\itshape 例子：}{\end{myquote}}
-\newenvironment{inventory}{\begin{description}\raggedright}{\end{description}}
+\newenvironment{disp}{\begin{quotation}}{\end{quotation}}
+\newenvironment{Disp}{\begin{quotation}}{\end{quotation}}
+\newenvironment{tdisp}{\begin{quotation}}{\end{quotation}}
+\newenvironment{example}{\begin{quotation}}{\end{quotation}}
+\newenvironment{inventory}{\begin{description}}{\end{description}}
 \newenvironment{glossinventory}{\begin{description}}{\end{description}}
 \def\gram#1{\gr{#1}}%???
 %

@@ -1,6 +1,9 @@
-% Font settings
 \usepackage[AutoFakeSlant=true]{xeCJK}
 \usepackage[OT1]{fontenc}
+\usepackage{comment,makeidx}
+\usepackage[hidelinks,bookmarksnumbered]{hyperref}
+
+% Font settings
 \renewcommand{\sfdefault}{txss}
 \renewcommand{\rmdefault}{txr}
 \renewcommand{\ttdefault}{cmtt}
@@ -11,9 +14,32 @@
 \setCJKsansfont{FandolHei-Regular}
 \setCJKmonofont{FandolFang-Regular}
 
+% General scheme
+
+\linespread{1.3}
+
 \makeatletter
 
 % Chapter title scheme
+\def\@chapter[#1]#2{%
+    \ifnum \c@secnumdepth >\m@ne
+        \refstepcounter{chapter}%
+        \typeout{\@chapprefix \thechapter \@chapsuffix}%
+        \addcontentsline{toc}{chapter}%
+                      {\protect\numberline{\@chapprefix \thechapter \@chapsuffix}\toc@font0 #1}%
+    \else
+      \addcontentsline{toc}{chapter}{\toc@font0 #1}%
+    \fi
+      \chaptermark{#1}%
+      \addtocontents{lof}{\protect\addvspace{10\p@}}%
+      \addtocontents{lot}{\protect\addvspace{10\p@}}%
+      \if@twocolumn
+        \@topnewpage[\@makechapterhead{#2}]%
+      \else
+        \@makechapterhead{#2}%
+        \@afterheading
+      \fi}
+
 \def\@makechapterhead#1{%
   \vspace*{50\p@ \@plus 5\p@}%
   {\setlength\parindent{\z@}%
@@ -48,18 +74,41 @@
   }
 }
 \pagestyle{fancy}
+
+% Table of contents
+
+\setlength\unitindent{36pt}
+\renewcommand*\@regtocline[3]{%
+  \ifnum #1>\c@tocdepth
+  \else
+    \vskip\z@\@plus.2\p@
+    {\hangindent\z@ \@afterindenttrue \interlinepenalty\@M
+     \leftskip\unitindent
+     \rightskip\unitindent\@plus 1fil
+     \parfillskip\z@
+     \@tempdima\unitindent
+     \parindent\z@
+     \leavevmode
+     \hbox{}\hskip -\leftskip\relax \toc@size{#1}#2\nobreak
+     \hskip 1em \nobreak #3\par
+     }%
+  \fi}
+
+\renewcommand*\toc@font[1]{%
+  \ifcase#1\relax
+  \bfseries % chapter
+  \or\rmfamily % section
+  \or\slshape % subsection
+\fi}
+
+\newcommand*\toc@size[1]{%
+  \ifcase#1\relax
+  \fontsize{\@xpt}{\@xviipt}\selectfont % chapter
+  \or\normalsize % section
+  \or\small % subsection
+\fi}
+
 \makeatother
-
-\usepackage{comment,makeidx}
-
-\usepackage[colorlinks,plainpages,pagebackref]{hyperref}
-\hypersetup{
-   pdfstartview={FitH},
-   citecolor=teal,
-   linkcolor=myblue,
-   urlcolor=black,
-   bookmarksnumbered
-}
 
 \def\BannerFont{\small\itshape}
 \def\ChapFont{\sffamily}
