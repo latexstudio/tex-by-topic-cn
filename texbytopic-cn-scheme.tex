@@ -16,12 +16,14 @@
 
 % General scheme
 
-\linespread{1.3}
+\linespread{1.2}
+\usepackage{indentfirst}
 
 \makeatletter
 
 % Chapter title scheme
 \def\@chapter[#1]#2{%
+    \addtocontents{toc}{\protect\addvspace{10\p@}}
     \ifnum \c@secnumdepth >\m@ne
         \refstepcounter{chapter}%
         \typeout{\@chapprefix \thechapter \@chapsuffix}%
@@ -67,7 +69,7 @@
     \let\@evenhead\@oddhead \let\@evenfoot\@oddfoot
   \fi
   \def\chaptermark##1{%
-    \markboth{\ifnum \c@secnumdepth >\m@ne \@chapprefix{} \thechapter{} \@chapsuffix{} \fi ##1}{}
+    \markboth{\ifnum \c@secnumdepth >\m@ne \@chapprefix{} \thechapter{} \@chapsuffix \quad \fi ##1}{}
   }
   \def\sectionmark##1{%
     \markright{\ifnum \c@secnumdepth >\z@ \thesection. \fi ##1}
@@ -103,7 +105,7 @@
 
 \newcommand*\toc@size[1]{%
   \ifcase#1\relax
-  \fontsize{\@xpt}{\@xviipt}\selectfont % chapter
+  \normalsize % chapter
   \or\normalsize % section
   \or\small % subsection
 \fi}

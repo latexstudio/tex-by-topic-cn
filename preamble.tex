@@ -29,13 +29,20 @@
 \def\AmsTeX{Ams\TeX}
 \def\TeXbook{the \TeX\ book}\def\web{{\sc web}}
 % needs major thinking
-\newenvironment{disp}{\begin{quotation}}{\end{quotation}}
-\newenvironment{Disp}{\begin{quotation}}{\end{quotation}}
-\newenvironment{tdisp}{\begin{quotation}}{\end{quotation}}
-\newenvironment{example}{\begin{quotation}}{\end{quotation}}
-\newenvironment{inventory}{\begin{description}}{\end{description}}
+\newenvironment{disp}{\begin{trivlist}\item\relax}{\end{trivlist}}
+\newenvironment{Disp}{\begin{trivlist}\item\relax}{\end{trivlist}}
+\newenvironment{tdisp}{\begin{trivlist}\item\relax}{\end{trivlist}}
+\newenvironment{example}{\begin{trivlist}\item\relax}{\end{trivlist}}
+%\newenvironment{inventory}{\begin{description}}{\end{description}}
 \newenvironment{glossinventory}{\begin{description}}{\end{description}}
 \def\gram#1{\gr{#1}}%???
+
+\newenvironment{inventory}{\list{}{%
+  \leftmargin=3.2\unitindent \labelwidth=3.2\unitindent \itemindent=0pt \labelsep=0pt 
+  \let\makelabel\inventorylabel}}
+  {\endlist}
+\makeatother
+\newcommand\inventorylabel[1]{#1\hss}
 %
 % index
 %
